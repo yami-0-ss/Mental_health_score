@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Mental Health Score Predictor</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>How is your social media use linked to your mental health score?</h1>
+    <p>Fill in your daily habits and our machine learning model will estimate a mental health score for you.</p>
+  </header>
+
+  <main class="layout">
+    <!-- ============ FORM ============ -->
+    <form id="predict-form" class="card form-card" novalidate>
+      <div id="form-alert" class="form-alert" role="alert" hidden></div>
+
+      <fieldset>
+        <legend>About you</legend>
+
+        <div class="grid two">
+          <div class="field">
+            <label for="age">Age</label>
+            <div class="input-wrap">
+              <input type="number" id="age" name="age" min="10" max="100" step="1" inputmode="numeric" placeholder="e.g. 20" required />
+              <span class="unit">years</span>
+            </div>
+            <p class="error" id="error-age"></p>
+          </div>
+
+          <div class="field">
+            <span class="label" id="gender-label">Gender</span>
+            <div class="segmented" role="radiogroup" aria-labelledby="gender-label">
+              <label><input type="radio" name="gender" value="Male" /><span>Male</span></label>
+              <label><input type="radio" name="gender" value="Female" /><span>Female</span></label>
+            </div>
+            <p class="error" id="error-gender"></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="country">Country</label>
+          <input type="text" id="country" name="country" list="country-list" placeholder="Start typing, e.g. India" autocomplete="country-name" required />
+          <datalist id="country-list"></datalist>
+          <p class="hint">Pick from the list or type your own.</p>
+          <p class="error" id="error-country"></p>
+        </div>
+
+        <div class="field">
+          <span class="label" id="academic-label">Academic level</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="academic-label">
+            <label><input type="radio" name="academic_level" value="High School" /><span>High School</span></label>
+            <label><input type="radio" name="academic_level" value="Undergraduate" /><span>Undergraduate</span></label>
+            <label><input type="radio" name="academic_level" value="Graduate" /><span>Graduate</span></label>
+          </div>
+          <p class="error" id="error-academic_level"></p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Social media use</legend>
+
+        <div class="field">
+          <label for="most_used_platform">Most used platform</label>
+          <select id="most_used_platform" name="most_used_platform" required>
+            <option value="" disabled selected>Choose a platform</option>
+            <option>Facebook</option>
+            <option>Instagram</option>
+            <option>KakaoTalk</option>
+            <option>LINE</option>
+            <option>LinkedIn</option>
+            <option>Snapchat</option>
+            <option>TikTok</option>
+            <option>Twitter</option>
+            <option>VKontakte</option>
+            <option>WeChat</option>
+            <option>WhatsApp</option>
+            <option>YouTube</option>
+          </select>
+          <p class="error" id="error-most_used_platform"></p>
+        </div>
+
+        <div class="field">
+          <span class="label" id="purpose-label">Main purpose of use</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="purpose-label">
+            <label><input type="radio" name="purpose_of_use" value="Education" /><span>Education</span></label>
+            <label><input type="radio" name="purpose_of_use" value="Entertainment" /><span>Entertainment</span></label>
+            <label><input type="radio" name="purpose_of_use" value="Networking" /><span>Networking</span></label>
+            <label><input type="radio" name="purpose_of_use" value="News" /><span>News</span></label>
+          </div>
+          <p class="error" id="error-purpose_of_use"></p>
+        </div>
+
+        <div class="grid two">
+          <div class="field">
+            <label for="avg_daily_usage_hours">Daily usage</label>
+            <div class="input-wrap">
+              <input type="number" id="avg_daily_usage_hours" name="avg_daily_usage_hours" min="0" max="24" step="0.1" inputmode="decimal" placeholder="e.g. 4.5" required />
+              <span class="unit">hrs/day</span>
+            </div>
+            <p class="error" id="error-avg_daily_usage_hours"></p>
+          </div>
+
+          <div class="field">
+            <label for="daily_unlocks">Phone unlocks</label>
+            <div class="input-wrap">
+              <input type="number" id="daily_unlocks" name="daily_unlocks" min="0" step="1" inputmode="numeric" placeholder="e.g. 60" required />
+              <span class="unit">per day</span>
+            </div>
+            <p class="error" id="error-daily_unlocks"></p>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Daily routine</legend>
+
+        <div class="grid three">
+          <div class="field">
+            <label for="study_hours">Study</label>
+            <div class="input-wrap">
+              <input type="number" id="study_hours" name="study_hours" min="0" max="24" step="0.1" inputmode="decimal" placeholder="e.g. 3" required />
+              <span class="unit">hrs</span>
+            </div>
+            <p class="error" id="error-study_hours"></p>
+          </div>
+
+          <div class="field">
+            <label for="physical_activity_hours">Physical activity</label>
+            <div class="input-wrap">
+              <input type="number" id="physical_activity_hours" name="physical_activity_hours" min="0" max="24" step="0.1" inputmode="decimal" placeholder="e.g. 1" required />
+              <span class="unit">hrs</span>
+            </div>
+            <p class="error" id="error-physical_activity_hours"></p>
+          </div>
+
+          <div class="field">
+            <label for="sleep_hours_per_night">Sleep per night</label>
+            <div class="input-wrap">
+              <input type="number" id="sleep_hours_per_night" name="sleep_hours_per_night" min="0" max="24" step="0.1" inputmode="decimal" placeholder="e.g. 7" required />
+              <span class="unit">hrs</span>
+            </div>
+            <p class="error" id="error-sleep_hours_per_night"></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="label" id="stress-label">Stress level</span>
+          <div class="segmented stress" role="radiogroup" aria-labelledby="stress-label">
+            <label><input type="radio" name="stress_level" value="Low" /><span>Low</span></label>
+            <label><input type="radio" name="stress_level" value="Medium" /><span>Medium</span></label>
+            <label><input type="radio" name="stress_level" value="High" /><span>High</span></label>
+            <label><input type="radio" name="stress_level" value="Very High" /><span>Very High</span></label>
+          </div>
+          <p class="error" id="error-stress_level"></p>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button type="submit" id="submit-btn" class="btn primary">
+          <span class="btn-label">Predict my score</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+        <button type="reset" id="reset-btn" class="btn ghost">Clear form</button>
+      </div>
+    </form>
+
+    <!-- ============ RESULT ============ -->
+    <aside class="result-panel card" id="result-panel" data-state="idle" aria-live="polite">
+      <div class="gauge-wrap">
+        <svg class="gauge" viewBox="0 0 220 130" role="img" aria-label="Mental health score gauge">
+          <defs>
+            <linearGradient id="gauge-gradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#E0603A" />
+              <stop offset="50%" stop-color="#E9B44C" />
+              <stop offset="100%" stop-color="#0F7C86" />
+            </linearGradient>
+          </defs>
+          <path class="gauge-track" d="M 20 110 A 90 90 0 0 1 200 110" />
+          <path class="gauge-fill" id="gauge-fill" d="M 20 110 A 90 90 0 0 1 200 110" />
+        </svg>
+        <div class="gauge-readout">
+          <span class="score" id="score-value">--</span>
+          <span class="score-scale">out of 10</span>
+        </div>
+      </div>
+
+      <!-- Idle -->
+      <div class="state state-idle">
+        <h2>Your score will appear here</h2>
+        <p>Complete the form and select <strong>Predict my score</strong>.</p>
+      </div>
+
+      <!-- Loading -->
+      <div class="state state-loading">
+        <h2>Analysing your habits</h2>
+        <p>The model is calculating your score. This usually takes a second.</p>
+      </div>
+
+      <!-- Success -->
+      <div class="state state-success">
+        <h2 id="result-title">Moderate</h2>
+        <p id="result-text"></p>
+        <div class="scale-legend" aria-hidden="true">
+          <span>0 Low</span><span>5</span><span>10 High</span>
+        </div>
+        <p class="disclaimer">This is an estimate from a machine learning model for learning purposes. It is not a medical diagnosis. If you are struggling, please talk to a doctor or counsellor.</p>
+        <button type="button" id="again-btn" class="btn ghost">Edit answers</button>
+      </div>
+
+      <!-- Error -->
+      <div class="state state-error">
+        <h2 id="error-title">Something went wrong</h2>
+        <p id="error-text"></p>
+        <button type="button" id="retry-btn" class="btn primary small">Try again</button>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <p>Built with FastAPI and scikit-learn. Prediction API: <code id="api-url-label"></code></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
