@@ -1,16 +1,7 @@
+
 fastapi
 uvicorn
-pydantic
-<<<<<<< HEAD
-joblib
 pandas
 numpy
-scipy
 scikit-learn==1.6.1
-=======
-joblib==1.4.2
-pandas==2.2.3
-numpy==2.2.6
-scipy==1.15.3
-scikit-learn==1.6.1
->>>>>>> dc1636f (updated js file with deployed backend link)
+joblib
