@@ -2,11 +2,13 @@
    Configuration
    ========================================================== */
 
+
 const API_BASE = "https://mental-health-score-1-fr8t.onrender.com";
 const PREDICT_URL = `${API_BASE}/predict`;
 const REQUEST_TIMEOUT_MS = 15000;
-const GAUGE_LENGTH = 282.74; // length of the semicircle path (PI * 90)
-const MAX_SCORE = 10;        // gauge scale
+const GAUGE_LENGTH = 282.74;
+const MAX_SCORE = 10;
+        // gauge scale
 
 
 const COUNTRIES = [
