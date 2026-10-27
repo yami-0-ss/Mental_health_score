@@ -1,7 +1,7 @@
 /* ==========================================================
    Configuration
    ========================================================== */
-const API_BASE = "http://127.0.0.1:2200";
+const API_BASE = "https://mental-health-score-2-vepf.onrender.com";
 const PREDICT_URL = `${API_BASE}/predict`;
 const REQUEST_TIMEOUT_MS = 15000;
 const GAUGE_LENGTH = 282.74; // length of the semicircle path (PI * 90)
