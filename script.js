@@ -1,15 +1,13 @@
 /* ==========================================================
    Configuration
    ========================================================== */
-<<<<<<< HEAD
-const API_BASE = "http://127.0.0.1:2200";
-=======
+
 const API_BASE = "http://127.0.0.1:8000";
->>>>>>> fa14cfd (Fix requirements and API configuration)
 const PREDICT_URL = `${API_BASE}/predict`;
 const REQUEST_TIMEOUT_MS = 15000;
 const GAUGE_LENGTH = 282.74; // length of the semicircle path (PI * 90)
 const MAX_SCORE = 10;        // gauge scale
+
 
 const COUNTRIES = [
   "India", "USA", "Canada", "Australia", "UK", "Germany", "Mexico", "Turkey", "France",
