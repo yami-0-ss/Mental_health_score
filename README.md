@@ -4,7 +4,9 @@
 An end-to-end machine learning project that predicts a student's **mental health score** from their social media usage, daily routine and stress level. A trained scikit-learn pipeline is served through a **FastAPI** backend, and a responsive **HTML / CSS / JavaScript** frontend lets anyone try it in the browser.
 
 **Live API:** https://mental-health-score-3-9g50.onrender.com/
+
 **Interactive API docs (Swagger):** https://mental-health-score-3-9g50.onrender.com/docs
+
 **GitHub:** https://github.com/yami-0-ss/Mental_health_score
 
 > The API is hosted on Render's free tier and sleeps after a period of inactivity. The first request can take 30-60 seconds while it wakes up. After that, responses are fast.
